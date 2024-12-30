@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import RestroCard from "./Card/RestroCard";
 import Shemer from "./Shemer/Shemer";
 import Top from "./Top";
+import { Link } from "react-router-dom";
 const Body = () => {
     const [topResaurants, setTopResaurants] = useState([])
     const [filter, setfilter] = useState([])
@@ -9,17 +10,17 @@ const Body = () => {
     useEffect(() => {
         topFood()
     }, [])
+
     async function topFood() {
         let response = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.7195687&lng=75.8577258&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
         let data = await response.json()
 
         setTopResaurants(data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
         setfilter(data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+
     }
 
     function clickHendler() {
-
-
         const newData = filter.filter((res) =>
             res.info.name.toLowerCase().includes(search.toLowerCase())
         )
@@ -55,7 +56,9 @@ const Body = () => {
                 </div>
                 <div className="md:grid grid-cols-4 gap-10">
                     {topResaurants.map((res, i) => (
-                        <RestroCard res={res} key={i} />
+                       <Link key={i} to={`menu/${res.info.id}`}>
+                            <RestroCard res={res} />
+                        </Link>
                     ))}
                 </div>
             </div>

@@ -5,39 +5,46 @@ import { BiSolidOffer } from "react-icons/bi";
 import { IoHelpBuoySharp } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa6";
 import { CgShoppingCart } from "react-icons/cg";
+import { Link } from 'react-router-dom';
 
 const Nav = () => {
     const items = [
         {
             id: 1,
             text: "Swiggy Corporate",
+            to: "SwiggyCoprate",
             icon: <BiSolidShoppingBagAlt />,
         },
         {
             id: 2,
             text: "Search",
+            to: "SwiggyCoprate",
             icon: <IoIosSearch />
 
         },
         {
             id: 3,
             text: "Offers",
+            to: "SwiggyCoprate",
             icon: <BiSolidOffer />
         },
         {
             id: 4,
             text: "Help",
+            to: "SwiggyCoprate",
             icon: <IoHelpBuoySharp />
         },
         {
             id: 5,
             text: "User",
+            to: "SwiggyCoprate",
             icon: <FaRegUser />
 
         },
         {
             id: 7,
             text: "Cart",
+            to: "SwiggyCoprate",
             icon: <CgShoppingCart />
         }
     ];
@@ -49,8 +56,8 @@ const Nav = () => {
             <div className='flex items-center text-xl gap-10'>
                 {items.map((item, i) => (
                     <div key={i} className='flex gap-2 hover:text-orange-600 cursor-pointer duration-300  items-center'>
-                        <h1>{item.icon}</h1>
-                        <h1>{item.text}</h1>
+                        <Link to={item.to}>{item.icon}</Link>
+                        <Link to={item.to} >{item.text}</Link>
                     </div>
                 ))}
             </div>

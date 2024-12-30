@@ -1,27 +1,20 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Body from './components/Body.jsx'
 import SwiggyCoprate from './components/Home/SwiggyCoprate.jsx'
-
-const Router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />
-  },
-  {
-    path: "/SwiggyCoprate",
-    element: <SwiggyCoprate />
-  }
-])
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Body from './components/Body.jsx'
+import Menu from './components/Menu.jsx'
 
 createRoot(document.getElementById('root')).render(
 
-  <RouterProvider router={Router}>
-    <App />
-
-  </RouterProvider>
+  <BrowserRouter>
+    <Routes>
+      <Route path='/' element={<App />} >
+        <Route path='/' element={<Body />} />
+        <Route path='/menu/:id' element={<Menu />} />
+        <Route path='SwiggyCoprate' element={<SwiggyCoprate />} />
+      </Route>
+    </Routes>
+  </BrowserRouter>
 )
