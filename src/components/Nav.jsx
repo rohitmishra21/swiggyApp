@@ -37,7 +37,7 @@ const Nav = () => {
         {
             id: 5,
             text: "User",
-            to: "SwiggyCoprate",
+            to: "user",
             icon: <FaRegUser />
 
         },
