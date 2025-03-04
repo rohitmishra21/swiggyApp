@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import { BiSolidShoppingBagAlt } from "react-icons/bi";
 import { IoIosSearch } from "react-icons/io";
 import { BiSolidOffer } from "react-icons/bi";
@@ -6,6 +6,7 @@ import { IoHelpBuoySharp } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa6";
 import { CgShoppingCart } from "react-icons/cg";
 import { Link } from 'react-router-dom';
+
 
 const Nav = () => {
     const items = [
@@ -18,7 +19,7 @@ const Nav = () => {
         {
             id: 2,
             text: "Search",
-            to: "SwiggyCoprate",
+            to: "SearchBox",
             icon: <IoIosSearch />
 
         },

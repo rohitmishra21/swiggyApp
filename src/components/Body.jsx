@@ -1,32 +1,17 @@
-import { useState, useEffect } from "react"
-import RestroCard from "./Card/RestroCard";
-import Shemer from "./Shemer/Shemer";
+
+import RestroCard, { vegRestroCard } from "./Card/RestroCard";
 import Top from "./Top";
 import { Link } from "react-router-dom";
+import useRestroBody from "../hook/useRestoBody";
 const Body = () => {
-    const [topResaurants, setTopResaurants] = useState([])
-    const [filter, setfilter] = useState([])
-    const [search, setSearch] = useState("")
-    useEffect(() => {
-        topFood()
-    }, [])
-
-    async function topFood() {
-        let response = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=22.7195687&lng=75.8577258&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
-        let data = await response.json()
-
-        setTopResaurants(data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-        setfilter(data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-
-    }
-
-    function clickHendler() {
-        const newData = filter.filter((res) =>
-            res.info.name.toLowerCase().includes(search.toLowerCase())
-        )
-
-        setTopResaurants(newData)
-        setSearch('')
+    const { topResaurants, setTopResaurants, filterRestroData } = useRestroBody()
+    const VegCard = vegRestroCard(RestroCard)
+    const filterData = () => {
+        const filterBodyPrice = filterRestroData.filter((price) => {
+            const filtePrice = price.info.avgRating
+            return filtePrice > 4.5
+        })
+        setTopResaurants(filterBodyPrice)
     }
 
     return topResaurants.length === 0 ? (
@@ -38,30 +23,17 @@ const Body = () => {
             <Top />
             <div>
 
-                <h1 className='pt-10 text-2xl font-bold'>Top restaurant chains in Indore</h1>
-
-                <div className="flex justify-end items-center py-20 ">
-
-                    <div className="flex   items-center">
-                        <input
-                            type="text"
-                            className="border-black w-1/2 p-3 text-black border-2 py-2"
-                            value={search}
-                            onChange={(e) => {
-                                setSearch(e.target.value)
-                            }}
-                        />
-                        <button onClick={clickHendler} className="bg-black  text-gray-200 py-2.5 px-4">search</button>
-                    </div>
-                </div>
+                <h1 className='pt-10 text-2xl font-bold mb-5'>Top restaurant chains in Indore</h1>
+                <button className="my-8 bg-slate-400 px-2 text-white font-bold capitalize py-1 rounded" onClick={filterData}>Top-Rated</button>
                 <div className="md:grid grid-cols-4 gap-10">
                     {topResaurants.map((res, i) => (
-                       <Link key={i} to={`menu/${res.info.id}`}>
-                            <RestroCard res={res} />
+                        <Link key={i} to={`menu/${res.info.id}`}>
+                            {res.info.veg ? <VegCard res={res} /> : <RestroCard res={res} />}
+
                         </Link>
                     ))}
                 </div>
-            </div>
+            </div >
         </>
     )
 }

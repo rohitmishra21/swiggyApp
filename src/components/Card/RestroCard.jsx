@@ -2,6 +2,7 @@ import React from 'react'
 import { GoDotFill } from "react-icons/go";
 
 const RestroCard = ({ res }) => {
+
     return (
         <>
             <div className="hover:scale-105 transition-all duration-300">
@@ -28,5 +29,18 @@ const RestroCard = ({ res }) => {
         </>
     )
 }
+
+
+export const vegRestroCard = (RestroCard) => {
+    return ((props) => {
+        return (
+            <div className='relative'>
+                <h1 className='z-30 p-1 text-xs rounded text-white bg-black absolute'>VEG</h1>
+                <RestroCard {...props} />
+            </div>
+        )
+    })
+}
+
 
 export default RestroCard

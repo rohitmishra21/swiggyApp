@@ -1,6 +1,6 @@
 const SwiggyCoprate = () => {
     return (
-        <h1>Helow sir</h1>
+        <h1>Helow </h1>
     )
 }
 

@@ -7,6 +7,9 @@ import Body from './components/Body.jsx'
 import Menu from './components/Menu.jsx'
 import User from './components/User.jsx'
 
+import { lazy, Suspense } from 'react'
+
+const SearchBox = lazy(() => import('./components/SearchBox.jsx'))
 createRoot(document.getElementById('root')).render(
 
   <BrowserRouter>
@@ -15,6 +18,7 @@ createRoot(document.getElementById('root')).render(
         <Route path='/' element={<Body />} />
         <Route path='/menu/:id' element={<Menu />} />
         <Route path='SwiggyCoprate' element={<SwiggyCoprate />} />
+        <Route path='SearchBox' element={<Suspense fallback={<h1>Loading....</h1>}><SearchBox /></Suspense>} />
         <Route path='user' element={<User />} />
       </Route>
     </Routes>
