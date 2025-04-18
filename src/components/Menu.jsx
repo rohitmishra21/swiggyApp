@@ -4,11 +4,14 @@ import Slider from './Slide/Slider';
 import useMenuRestro from '../hook/useMenuRestro';
 import { STAR_SVG } from './config/config';
 import RestrouentCategory from './RestrouentCategory';
+import { useState } from 'react';
+
 const Menu = () => {
 
 
   const { id } = useParams()
   const menuData = useMenuRestro(id)
+  const [index, setindex] = useState(0)
 
   const { name, avgRating, totalRatingsString, costForTwoMessage, cuisines, sla } = menuData?.data?.cards[2]?.card?.card?.info || 'Unknown Name';
 
@@ -19,6 +22,10 @@ const Menu = () => {
     c.card.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory"
 
   )
+
+  function showHendler(i) {
+    setindex((p) => p === i ? null : i);
+  }
 
   return (
     <div className='w-full flex justify-center'>
@@ -46,7 +53,7 @@ const Menu = () => {
 
         {category &&
           category.map((category, i) => (
-            <RestrouentCategory key={i} data={category?.card?.card} />
+            <div onClick={() => showHendler(i)} key={i}>  <RestrouentCategory showItem={i === index ? true : false} data={category?.card?.card} /></div>
           ))
         }
       </div>

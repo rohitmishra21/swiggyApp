@@ -24,12 +24,11 @@ const Body = () => {
             <div>
 
                 <h1 className='pt-10 text-2xl font-bold mb-5'>Top restaurant chains in Indore</h1>
-                <button className="my-8 bg-slate-400 px-2 text-white font-bold capitalize py-1 rounded" onClick={filterData}>Top-Rated</button>
+                <button className="my-8 bg-slate-950 px-2 text-white font-bold capitalize py-1 rounded" onClick={filterData}>Top-Rated</button>
                 <div className="md:grid grid-cols-4 gap-10">
                     {topResaurants.map((res, i) => (
                         <Link key={i} to={`menu/${res.info.id}`}>
                             {res.info.veg ? <VegCard res={res} /> : <RestroCard res={res} />}
-
                         </Link>
                     ))}
                 </div>
